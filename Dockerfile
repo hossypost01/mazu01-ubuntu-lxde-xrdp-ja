@@ -1,4 +1,3 @@
-# vi Dockerfile                                                  # Edit
 # docker build -t lxde .                                         # Build
 # docker pull mazu01/ubuntu-lxde-xrdp-ja                         # pull
 # docker tag mazu01/ubuntu-lxde-xrdp-ja lxde                     # Tag
