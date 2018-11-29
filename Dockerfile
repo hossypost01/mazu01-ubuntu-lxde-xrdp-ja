@@ -1,10 +1,10 @@
-# docker build -t lxde .                                         # Build
-# docker pull mazu01/ubuntu-lxde-xrdp-ja                         # pull
-# docker tag mazu01/ubuntu-lxde-xrdp-ja lxde                     # Tag
-# docker run --name=lxde -p 3389:3389 lxde                       # Run
-# docker exec -it lxde bash                                      # Bash
-# Start: docker restart lxde                                     # Start
-# Stop:  docker stop  lxde                                       # Stop
+# docker pull mazu01/ubuntu-lxde-xrdp-ja      # pull
+# docker tag mazu01/ubuntu-lxde-xrdp-ja lxde  # Tag
+# docker run --name=lxde -p 3389:3389 lxde    # Run
+# docker exec -it lxde bash                   # Bash
+# docker restart lxde                         # Start
+# docker stop  lxde                           # Stop
+# docker build -t lxde .                      # Build
 
 FROM ubuntu:18.04
 
@@ -12,7 +12,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
       tzdata locales sudo vim git net-tools wget curl \
       libnss3 libgconf-2-4 libxss1 gnupg \
-      xrdp \
     && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
     && echo 'Asia/Tokyo' > /etc/timezone \
     && locale-gen ja_JP.UTF-8 \
@@ -21,7 +20,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV LANG=ja_JP.UTF-8 \
     LANGUAGE=ja_JP:ja \
     LC_ALL=ja_JP.UTF-8
-RUN apt-get install -y language-pack-ja-base language-pack-ja fonts-takao fcitx fcitx-mozc lxde\
+RUN apt-get install -y \
+       language-pack-ja-base language-pack-ja fonts-takao fcitx fcitx-mozc \
+       xrdp lxde \
     && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/*
 RUN wget -O vsc.deb https://go.microsoft.com/fwlink/?LinkID=760868 \
     && dpkg -i vsc.deb && rm -f vsc.deb \
